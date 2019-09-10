@@ -1,0 +1,9 @@
+{
+    "extensions":
+    [
+        "pdb",
+        "pdbq"
+    ],
+
+    "color_scheme": "Packages/sublimegmx/Monokai-gromacs.tmTheme",
+}

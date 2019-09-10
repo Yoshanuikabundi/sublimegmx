@@ -1,0 +1,87 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: PDB
+file_extensions:
+  - pdb
+scope: text.pdb
+contexts:
+  main:
+    - match: "^(ATOM  )(.{0,5})(.?)(.{0,4})(.?)(.{0,3})(.?)(.?)(.{0,4})(.?)(.{0,3})(.{0,8})(.{0,8})(.{0,8})(.{0,6})(.{0,6})(.{0,10})(.{0,2})(.{0,2})(.*)"
+      comment: ATOM record
+      scope: atom.record.pdb
+      captures:
+        1: keyword.control.atom.pdb
+        2: serial.atom.record.pdb
+        3: comment.pdb
+        4: name.atom.record.pdb
+        5: altLoc.atom.record.pdb
+        6: resName.atom.record.pdb
+        7: comment.pdb
+        8: chainID.atom.record.pdb
+        9: resSeq.atom.record.pdb
+        10: iCode.atom.record.pdb
+        11: comment.pdb
+        12: coord.x.atom.record.pdb
+        13: coord.y.atom.record.pdb
+        14: coord.z.atom.record.pdb
+        15: occupancy.atom.record.pdb
+        16: tempFactor.atom.record.pdb
+        17: comment.pdb
+        18: element.atom.record.pdb
+        19: charge.atom.record.pdb
+        20: comment.pdb
+    - match: "^(HETATM)(.{0,5})(.?)(.{0,4})(.?)(.{0,3})(.?)(.?)(.{0,4})(.?)(.{0,3})(.{0,8})(.{0,8})(.{0,8})(.{0,6})(.{0,6})(.{0,10})(.{0,2})(.{0,2})(.*)"
+      comment: HETATM record
+      scope: hetatm.record.pdb
+      captures:
+        1: keyword.control.hetatm.pdb
+        2: serial.hetatm.record.pdb
+        3: comment.pdb
+        4: name.hetatm.record.pdb
+        5: altLoc.hetatm.record.pdb
+        6: resName.hetatm.record.pdb
+        7: comment.pdb
+        8: chainID.hetatm.record.pdb
+        9: resSeq.hetatm.record.pdb
+        10: iCode.hetatm.record.pdb
+        11: comment.pdb
+        12: coord.x.hetatm.record.pdb
+        13: coord.y.hetatm.record.pdb
+        14: coord.z.hetatm.record.pdb
+        15: occupancy.hetatm.record.pdb
+        16: tempFactor.hetatm.record.pdb
+        17: comment.pdb
+        18: element.hetatm.record.pdb
+        19: charge.hetatm.record.pdb
+        20: comment.pdb
+    - match: "^(TER   )(.{0,5})(.{0,6})(.{0,3})(.?)(.?)(.{0,4})(.?)(.*)"
+      comment: TER record indicates end of chain
+      scope: ter.record.pdb
+      captures:
+        1: keyword.control.ter.pdb
+        2: serial.ter.record.pdb
+        3: comment.pdb
+        4: resName.ter.record.pdb
+        5: comment.pdb
+        6: chainID.ter.record.pdb
+        7: resSeq.ter.record.pdb
+        8: iCode.ter.record.pdb
+        9: comment.pdb
+    - match: "^(CONECT)(.{0,5})(.{0,5})(.{0,5})(.{0,5})(.{0,5})(.*)"
+      comment: Connect records
+      scope: conect.record.pdb
+      captures:
+        1: keyword.control.conect.pdb
+        2: serial.atom1.conect.pdb
+        3: serial.bondedatom1.conect.pdb
+        4: serial.bondedatom2.conect.pdb
+        5: serial.bondedatom3.conect.pdb
+        6: serial.bondedatom4.conect.pdb
+        7: comment.pdb
+    - match: ^MODEL
+      push:
+        - meta_scope: model.pdb
+        - match: ^ENDMDL
+          pop: true
+        - include: main

@@ -1,0 +1,9 @@
+{
+    "extensions":
+    [
+        "mdp",
+        "rtp"
+    ],
+
+    "color_scheme": "Packages/sublimegmx/Monokai-gromacs.tmTheme",
+}

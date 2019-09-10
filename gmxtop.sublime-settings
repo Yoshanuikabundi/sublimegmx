@@ -1,0 +1,9 @@
+{
+    "extensions":
+    [
+        "itp",
+        "top"
+    ],
+
+    "color_scheme": "Packages/sublimegmx/Monokai-gromacs.tmTheme",
+}

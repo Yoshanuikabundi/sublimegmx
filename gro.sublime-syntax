@@ -1,0 +1,53 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: GRO file
+file_extensions:
+  - gro
+scope: source.gro
+contexts:
+  main:
+    - match: '^([0-9 ]{5})(.{5}+)(.{5})([0-9 ]{5})([ \-0-9]{4}\.[0-9]{3})([ \-0-9]{4}\.[0-9]{3})([ \-0-9]{4}\.[0-9]{3})([ \-0-9]{3}\.[0-9]{4})([ \-0-9]{3}\.[0-9]{4})([ \-0-9]{3}\.[0-9]{4})?\s*'
+      comment: Coordinate Line with veloc
+      captures:
+        1: resSeq.atom.gro
+        2: resName.atom.gro
+        3: name.atom.gro
+        4: serial.atom.gro
+        5: coord.x.atom.gro
+        6: coord.y.atom.gro
+        7: coord.z.atom.gro
+        8: veloc.x.atom.gro
+        9: veloc.y.atom.gro
+        10: veloc.z.atom.gro
+    - match: '^([0-9 ]{5})(.{5}+)(.{5})([0-9 ]{5})([ \-0-9]{4}\.[0-9]{3})([ \-0-9]{4}\.[0-9]{3})([ \-0-9]{4}\.[0-9]{3})?\s*'
+      comment: Coordinate Line without veloc
+      captures:
+        1: resSeq.atom.gro
+        2: resName.atom.gro
+        3: name.atom.gro
+        4: serial.atom.gro
+        5: coord.x.atom.gro
+        6: coord.y.atom.gro
+        7: coord.z.atom.gro
+    - match: '^\s+(-?\d+\.\d+\s*)(-?\d+\.\d+\s*)(-?\d+\.\d+\s*)((-?\d+\.\d+\s*){0,9})(.*)'
+      comment: box vectors
+      captures:
+        1: coord.x.box.gro
+        2: coord.y.box.gro
+        3: coord.z.box.gro
+        4: constant.numeric.box.gro
+    - match: '^(?:(.+?)(t=)\s*([0-9]*\.?[0-9]*)\s*(.*)\n)|(?:(.+)\n)'
+      comment: title string with time
+      captures:
+        1: comment.gro
+        2: keyword.gro
+        3: constant.numeric.time.gro
+        4: invalid.illegal.gro
+        5: comment.gro
+      push:
+        - meta_content_scope: invalid.illegal.gro
+        - match: ^\s*(\d+)\s*$
+          captures:
+            1: constant.numeric.gro
+          pop: true
